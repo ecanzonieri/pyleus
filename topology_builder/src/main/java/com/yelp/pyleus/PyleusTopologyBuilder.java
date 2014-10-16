@@ -20,9 +20,9 @@ import backtype.storm.tuple.Fields;
 import storm.kafka.KafkaSpout;
 import storm.kafka.KeyValueSchemeAsMultiScheme;
 import storm.kafka.SpoutConfig;
-import storm.kafka.StringKeyValueScheme;
 import storm.kafka.ZkHosts;
 
+import com.yelp.kafka.RichStringKeyValueScheme;
 import com.yelp.pyleus.bolt.PythonBolt;
 import com.yelp.pyleus.spec.BoltSpec;
 import com.yelp.pyleus.spec.ComponentSpec;
@@ -160,7 +160,7 @@ public class PyleusTopologyBuilder {
         // TODO: this mandates that messages are UTF-8. We should allow for binary data
         // in the future, or once users can have Java components, let them provide their
         // own JSON serialization method. Or wait on STORM-138.
-        config.scheme = new KeyValueSchemeAsMultiScheme(new StringKeyValueScheme());
+        config.scheme = new KeyValueSchemeAsMultiScheme(new RichStringKeyValueScheme(topic));
 
         return new KafkaSpout(config);
     }
