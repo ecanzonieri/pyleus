@@ -28,7 +28,7 @@ public class RichStringKeyValueScheme extends StringKeyValueScheme {
         String keyString = StringScheme.deserializeString(key);
         String valueString = StringScheme.deserializeString(value);
         return new Values(ImmutableMap.of(keyString, valueString),
-                topic_name, Calendar.getInstance().getTimeInMillis());
+                topic_name, (float)System.currentTimeMillis() / 1000.0);
     };
 
     // I need to override both deserialize and deserializeKeyAndValue because
